@@ -364,7 +364,7 @@ class BitcoinConnection(object):
         except JSONRPCException as e:
             raise _wrap_exception(e.error)
 
-    def listtransactions(self, account, count=10, address=None):
+    def listtransactions(self, account, count=10, from_=0, address=None):
         """
         Returns a list of the last transactions for an account.
 
@@ -379,7 +379,7 @@ class BitcoinConnection(object):
         """
         try:
             return [TransactionInfo(**x) for x in
-                    self.proxy.listtransactions(account, count)
+                    self.proxy.listtransactions(account, count, from_)
                     if address is None or x["address"] == address]
         except JSONRPCException as e:
             raise _wrap_exception(e.error)
