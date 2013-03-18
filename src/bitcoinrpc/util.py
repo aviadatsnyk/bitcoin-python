@@ -1,15 +1,15 @@
 # Copyright (c) 2010 Witchspace <witchspace81@gmail.com>
-# 
+#
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
 # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
-# 
+#
 # The above copyright notice and this permission notice shall be included in
 # all copies or substantial portions of the Software.
-# 
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -38,9 +38,9 @@ class DStruct(object):
         self.__dict__.update(zip(self._fields, args_t))
         # dict
         self.__dict__.update(args_d)
-    def __repr__(self):
-        rv = []
-        for (k,v) in self.__dict__.iteritems():
-            rv.append(k+"="+v.__repr__())
-        return self.__class__.__module__+"."+self.__class__.__name__+"("+(",".join(rv))+")"
 
+    def __repr__(self):
+        return '{module}.{classname}({slots})'.format(
+            module=self.__class__.__module__, classname=self.__class__.__name__,
+            slots=", ".join('{k}={v!r}'.format(k=k, v=v) for k, v in
+                            self.__dict__.iteritems()))
